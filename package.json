@@ -1,7 +1,10 @@
 {
-  "name": "js",
+  "name": "pixijs-shader-101",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "dev": "budo index.js:bundle.js --dir public --live --open -v -t glslify | garnish"
+  },
   "dependencies": {
     "@pixi/core": "6.0.4",
     "@pixi/display": "6.0.4",
@@ -11,5 +14,41 @@
     "@pixi/ticker": "6.0.4",
     "glsl-noise": "0.0.0",
     "glslify": "7.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "babel-plugin-glslify": "^2.0.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babelify": "^10.0.0",
+    "budo": "^11.6.4",
+    "garnish": "^5.2.0"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "glslify"
+      ],
+      [
+        "babelify",
+        {
+          "global": "true",
+          "presets": [
+            "@babel/preset-env"
+          ],
+          "plugins": [
+            "glslify",
+            [
+              "module-resolver",
+              {
+                "alias": {
+                  "@lib": "./lib"
+                }
+              }
+            ]
+          ]
+        }
+      ]
+    ]
   }
 }
