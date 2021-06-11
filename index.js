@@ -6,7 +6,8 @@ import { BlurFilter } from '@pixi/filter-blur';
 import { Graphics } from '@pixi/graphics';
 
 // import CustomFilter from './CustomFilter.js';
-import DefaultFilter from '@lib/filters/DefaultFilter.js'
+import DefaultFilter from './lib/filters/DefaultFilter.js';
+import ParticlesFilter from './lib/filters/ParticlesFilter.js';
 // import WaveFilter from './filters/WaveFilter.js';
 
 // import size from 'size'
@@ -18,7 +19,6 @@ const size = {
 Renderer.registerPlugin('batch', BatchRenderer);
 
 class App {
-  
   constructor() {
     const canvas = document.createElement('canvas');
     const canvasContainer = document.querySelector(`#app`);
@@ -73,11 +73,18 @@ class App {
     /**
      * filters
      */
-    const filter = new DefaultFilter();
-    // const blurFilter = new BlurFilter(10);
+    const blurFilter = new BlurFilter(10);
+    sprite.filters = [blurFilter];
+
     const waveFilter = null;
     // const waveFilter = new WaveFilter();
-    sprite.filters = [filter];
+
+    // const filter = new DefaultFilter();
+    // sprite.filters = [filter];
+
+    const filter = new ParticlesFilter();
+    stage.filters = [filter];
+
 
     /**
      * Graphics
@@ -115,4 +122,4 @@ class App {
   }
 }
 
-new App()
+new App();
